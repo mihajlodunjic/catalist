@@ -1,5 +1,6 @@
 package com.example.catalist.network
 
+import com.example.catalist.BuildConfig
 import com.example.catalist.model.Breed
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -24,7 +25,7 @@ object ApiClient {
             .addInterceptor(logging)
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
-                    .addHeader("x-api-key", "live_LiAMfmFAU99Y9KVmzK5a2uWP2lxDuDtd1grkLB10CYjxGQ3qDIPoib3i3aV6aKBP")
+                    .addHeader("x-api-key", BuildConfig.CAT_API_KEY)
                     .build()
                 chain.proceed(request)
             }

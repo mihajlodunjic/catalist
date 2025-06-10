@@ -6,7 +6,6 @@ plugins {
     kotlin("kapt")
 }
 
-
 android {
     namespace = "com.example.catalist"
     compileSdk = 34
@@ -25,11 +24,18 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Dodaj BuildConfig field za debug verziju
+            buildConfigField("String", "CAT_API_KEY", "\"${project.findProperty("CAT_API_KEY") ?: "default_key"}\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            // Dodaj BuildConfig field za release verziju
+            buildConfigField("String", "CAT_API_KEY", "\"${project.findProperty("CAT_API_KEY") ?: "default_key"}\"")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,6 +45,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true  // Dodaj ovo da omogućiš BuildConfig
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -72,10 +79,6 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.2.0")
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("io.coil-kt:coil-compose:2.4.0")
-
-
-
-
 
 // Lifecycle & ViewModel
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
